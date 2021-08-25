@@ -22,7 +22,22 @@ namespace BancSystem.Tests
 
             //Assert
             Assert.Equal(1.18, Math.Round(result, 2));
+        }
+
+        [Fact]
+        public void Exchange_100_Rub_In_Euro_1Point18NotEqual()
+        {
+            //Arrange
+            Exchange exchange = new Exchange();
+            CurrencyType firstCurrency = new Ruble();
+            CurrencyType secondCurrency = new Euro();
+
+            //Act
+            var result = exchange.ConverterCurrency<CurrencyType>(100, firstCurrency, secondCurrency);
+
+            //Assert
             Assert.NotEqual(1, result);
         }
+
     }
 }

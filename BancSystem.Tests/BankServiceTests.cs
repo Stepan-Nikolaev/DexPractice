@@ -23,11 +23,7 @@ namespace BancSystem.Tests
 
             //Assert
             Assert.NotNull(result);
-            Assert.Equal(client.Name, result.Name);
-            Assert.Equal(client.Surname, result.Surname);
-            Assert.Equal(client.Patronymic, result.Patronymic);
-            Assert.Equal(client.Age, result.Age);
-            Assert.Equal(client.PassportID, result.PassportID);
+            Assert.Equal(client, result);
         }
     }
 }
