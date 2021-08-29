@@ -8,7 +8,7 @@ namespace BancSystem.Currencies
     {
         public Ruble()
         {
-            PriceCurrency = 0.014f;
+            PriceCurrency = 0.014;
             NameCurrency = "Рубль";
         }
     }

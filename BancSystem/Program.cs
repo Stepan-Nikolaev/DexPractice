@@ -5,12 +5,13 @@ using BancSystem.Models;
 using BancSystem.Service;
 using System.Collections.Generic;
 using System;
+using System.Threading.Tasks;
 
 namespace BancSystem
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             Bank bank = new Bank();
             List<Client> clients = new List<Client>();
@@ -38,6 +39,9 @@ namespace BancSystem
             }
 
             Dictionary<int, List<Accaunt>> newDataBaseClients = bank.GetClientsDictionaryFromFile();
+
+            CurrencyService currencyService = new CurrencyService();
+            await currencyService.GetCurrencyRate();
         }
     }
 }

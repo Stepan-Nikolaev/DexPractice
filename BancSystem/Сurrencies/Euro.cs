@@ -8,7 +8,7 @@ namespace BancSystem.Currencies
     {
         public Euro()
         {
-            PriceCurrency = 1.19f;
+            PriceCurrency = 1.19;
             NameCurrency = "Евро";
         }
     }

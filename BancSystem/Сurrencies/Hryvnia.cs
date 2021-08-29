@@ -8,7 +8,7 @@ namespace BancSystem.Currencies
     {
         public Hryvnia()
         {
-            PriceCurrency = 0.037f;
+            PriceCurrency = 0.037;
             NameCurrency = "Гривна";
         }
     }
