@@ -3,6 +3,7 @@ using BancSystem.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace BancSystem.Generators
 {
@@ -25,13 +26,13 @@ namespace BancSystem.Generators
             return dataBaseClients;
         }
 
-        public List<Client> GetGeneratedListClients(int lengthList)
+        public List<Client> GetGeneratedListClients(int lengthList, int passportId)
         {
             List<Client> clients = new List<Client>();
 
             for (int i = 0; i < lengthList; i++)
             {
-                Client client = new Client() { Name = "Иван", Surname = "Иванов", Patronymic = "Иванович", Age = (i + 18), PassportID = i };
+                Client client = new Client() { Name = "Иван", Surname = "Иванов", Patronymic = "Иванович", Age = (i + 18), PassportID = passportId };
                 clients.Add(client);
             }
 

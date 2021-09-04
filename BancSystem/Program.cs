@@ -6,42 +6,43 @@ using BancSystem.Service;
 using System.Collections.Generic;
 using System;
 using System.Threading.Tasks;
+using System.Threading;
 
 namespace BancSystem
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static void Main(string[] args)
         {
-            Bank bank = new Bank();
             List<Client> clients = new List<Client>();
-            List<Employee> employees = new List<Employee>();
-            Dictionary<int, List<Accaunt>> dataBaseClients = new Dictionary<int, List<Accaunt>>();
             Generator generator = new Generator();
+            var locker = new object();
 
-            dataBaseClients = generator.GetGeneratedDictionary(100);
-            clients = generator.GetGeneratedListClients(100);
-            employees = generator.GetGeneratedListEmployee(100);
-
-            foreach (var client in clients)
+            ThreadPool.QueueUserWorkItem(_ =>
             {
-                bank.Add(client);
-            }
+                for (int i = 0; i < 100; i++)
+                {
+                    lock (locker)
+                    {
+                        clients.AddRange(generator.GetGeneratedListClients(1, i));
+                    }
+                    Thread.Sleep(2000);
+                }
 
-            foreach (var employee in employees)
+            });
+
+
+            while (true)
             {
-                bank.Add(employee);
+                lock (locker)
+                {
+                    foreach (var item in clients)
+                    {
+                        Console.WriteLine(item.PassportID);
+                    }
+                }
+                Thread.Sleep(2000);
             }
-
-            if (bank.GetClientsDictionaryFromFile() == null)
-            {
-                bank.TransferDictionaryInFile(dataBaseClients);
-            }
-
-            Dictionary<int, List<Accaunt>> newDataBaseClients = bank.GetClientsDictionaryFromFile();
-
-            CurrencyService currencyService = new CurrencyService();
-            await currencyService.GetCurrencyRate();
         }
     }
 }
